@@ -8,6 +8,13 @@ def gcd(a, b):
 '''
 
 def phi(n):
+    '''
+    Parameters:
+        n : int
+            The number to find euler's totient for
+    Returns:
+        An integer representing the totient value
+    '''
     # Initialize the count of coprime numbers to 0
     count=0
     # Iterate from 1 to n-1
@@ -18,11 +25,30 @@ def phi(n):
     return count
 
 def isprime(n):
+    '''
+    Parameters:
+        n : int
+            The number to check for primality
+    Returns:
+        A boolean value representing n's primality
+    '''
+    #Simply, if phi(n)=n-1, then n is prime
     if phi(n)==n-1:
         return True
     return False
 
 def relativePrimality(a, b):
+    '''
+    Parameters:
+        a : int
+            One number to check for relative primality
+        b : int
+            Another number to check for relative primality
+
+    Returns:
+        A boolean value indicating if a and b are relatively prime or not
+    '''
+    # Two numbers are relatively prime to each other if their greatest common factor is 1
     if math.gcd(a,b)==1:
         return True
     return False
@@ -60,29 +86,40 @@ def primitive_roots(n):
 def genKeys(g, p, a):
     '''
 
-    Parameters
-    ----------
-    g : int
-        Primitive prime for number generation
-    p : int
-        Large, agreed-upon prime number
-    a : int
-        Private key number
+    Parameters:
+        g : int
+            Primitive prime for number generation
+        p : int
+            Large, agreed-upon prime number
+        a : int
+            Private key number
 
-    Returns
-    -------
-    Public-private key pair
+    Returns:
+        Public-private key pair
     
     '''
     return ((g**a)%p, a)
 
 def padto8(data):
+    # A simple function to pad little-endian binary data to 8 digits
     data=[*data]
     while len(data)<8:
         data.insert(0,"0")
     return ''.join(data)
 
 def encrypt(message:str, key:int):
+    '''
+    Parameters:
+        message : str
+                  Message to encrypt
+        key : int
+              The key to use to encrypt the message
+
+    Returns:
+        An encrypted message
+    '''
+    # Probably WILDLY inefficient
+    # TODO: Clean up code
     key=bin(key)[2:]
     message=[*message]
     binary=None
