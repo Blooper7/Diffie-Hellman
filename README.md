@@ -8,3 +8,4 @@ Currently, my Python Programming II class is doing a lesson in encryption and se
 There are plenty of things that could be done better, and that I may or may not get to at some point in the future.
 - There's a lot of spaghetti code, mostly in the ```encrypt()``` function.
 - The whole project is basically concept-dumping, or quickly dropping basic, unoptimized code into a file to represent concepts
+- The method for finding primitive roots becomes INSANELY slow when calculating roots for large numbers. As a note to the user, it's likely better to run this separately and write down the prime number you want to use. Don't run it unless you need to. 
