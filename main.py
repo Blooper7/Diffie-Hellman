@@ -87,6 +87,7 @@ def encrypt(message:str, key:int):
     message=[*message]
     binary=None
     encrypted_binary=[]
+    final=[]
     
     for i in range(len(message)):
         message[i]=padto8(bin(ord(message[i]))[2:])
@@ -98,20 +99,28 @@ def encrypt(message:str, key:int):
     
     for i in range(len(binary)):
         key_index=i%len(key)
-        encrypted_binary.append(int(binary[i])^int(key[key_index]))
+        #print(f"{key}, {key[key_index]} ({key_index})")
+        #print(f"{binary[i]} XOR {key[key_index]}, {int(binary[i])^int(key[key_index])}")
+        encrypted_binary.append(str(int(binary[i])^int(key[key_index])))
     
     for i in range(int(len(binary)/8)):
         real_index=(i*8)
-        encrypted_binary.append(binary[real_index:real_index+8])
-    print(f"{encrypted_binary=}")
+        print(f"- {encrypted_binary[real_index:real_index+8]}")
+        final.append(''.join(encrypted_binary[real_index:real_index+8]))
+    
+    for i in range(len(final)):
+        final[i]=int(final[i],2)
+        final[i]=chr(final[i])
+    return ''.join(final)
+    
         
     
 if __name__ == "__main__":
-    keys=genKeys(g=1931, p=2039, a=17)
-    encrypt("Hello", keys[0])
+    keys=genKeys(g=1931, p=2039, a=267)
+    print(encrypt("Hello, there! How are you today?", keys[0]))
     
-    print("Primitive roots")
-    print(primitive_roots(17))
+    #print("Primitive roots")
+    #print(primitive_roots(17))
     
 
 '''
