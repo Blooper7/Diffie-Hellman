@@ -118,8 +118,6 @@ def encrypt(message:str, key:int):
     Returns:
         An encrypted message
     '''
-    # Probably WILDLY inefficient
-    # TODO: Clean up code
     key=bin(key)[2:]
     key=padto8(key)
     key_bytes=[key[(i*8):(i*8)+8] for i in range(int(len(key)/8))]
