@@ -6,7 +6,7 @@ Currently, my Python Programming II class is doing a lesson in encryption and se
 
 ## Potential fixes
 There are plenty of things that could be done better, and that I may or may not get to at some point in the future.
-- There's a lot of spaghetti code, mostly in the ```encrypt()``` function.
+- ~There's a lot of spaghetti code, mostly in the ```encrypt()``` function.~
 - The whole project is basically concept-dumping, or quickly dropping basic, unoptimized code into a file to represent concepts
 
 ## Notes
