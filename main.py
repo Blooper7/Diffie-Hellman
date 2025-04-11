@@ -103,7 +103,7 @@ def genKeys(g, p, a):
 def padto8(data):
     # A simple function to pad little-endian binary data to 8 digits
     data=[*data]
-    while len(data)<8:
+    while len(data)%8!=0:
         data.insert(0,"0")
     return ''.join(data)
 
@@ -121,40 +121,32 @@ def encrypt(message:str, key:int):
     # Probably WILDLY inefficient
     # TODO: Clean up code
     key=bin(key)[2:]
+    key=padto8(key)
+    key_bytes=[key[(i*8):(i*8)+8] for i in range(int(len(key)/8))]
     message=[*message]
-    binary=None
-    encrypted_binary=[]
-    final=[]
+    encrypted=[]
     
     for i in range(len(message)):
-        message[i]=padto8(bin(ord(message[i]))[2:])
+        # message[i]=padto8(bin(ord(message[i]))[2:])
+        message[i]=ord(message[i])
+    for i in range(len(key_bytes)):
+        key_bytes[i]=int(key_bytes[i], 2)
+    
+    for i in range(len(message)):
+        key_index=i%len(key_bytes)
+        encrypted.append(chr(message[i]^key_bytes[key_index]))
         
-    print(message)
+        
+    #print(message)
+    #print(key_bytes)
+    #print(encrypted)
     
-    binary=''.join(message)
-    print(binary)
-    
-    for i in range(len(binary)):
-        key_index=i%len(key)
-        #print(f"{key}, {key[key_index]} ({key_index})")
-        #print(f"{binary[i]} XOR {key[key_index]}, {int(binary[i])^int(key[key_index])}")
-        encrypted_binary.append(str(int(binary[i])^int(key[key_index])))
-    
-    for i in range(int(len(binary)/8)):
-        real_index=(i*8)
-        print(f"- {encrypted_binary[real_index:real_index+8]}")
-        final.append(''.join(encrypted_binary[real_index:real_index+8]))
-    
-    for i in range(len(final)):
-        final[i]=int(final[i],2)
-        final[i]=chr(final[i])
-    return ''.join(final)
-    
+    return ''.join(encrypted)
         
     
 if __name__ == "__main__":
     keys=genKeys(g=1931, p=2039, a=267)
-    print(encrypt("Hello, there! How are you today?", keys[0]))
+    encrypt("Hello, there! How are you today?", keys[0])
     
     #print("Primitive roots")
     #print(primitive_roots(17))
