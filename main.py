@@ -125,19 +125,14 @@ def encrypt(message:str, key:int):
     encrypted=[]
     
     for i in range(len(message)):
-        # message[i]=padto8(bin(ord(message[i]))[2:])
         message[i]=ord(message[i])
+        
     for i in range(len(key_bytes)):
         key_bytes[i]=int(key_bytes[i], 2)
     
     for i in range(len(message)):
         key_index=i%len(key_bytes)
         encrypted.append(chr(message[i]^key_bytes[key_index]))
-        
-        
-    #print(message)
-    #print(key_bytes)
-    #print(encrypted)
     
     return ''.join(encrypted)
         
@@ -145,9 +140,6 @@ def encrypt(message:str, key:int):
 if __name__ == "__main__":
     keys=genKeys(g=1931, p=2039, a=267)
     encrypt("Hello, there! How are you today?", keys[0])
-    
-    #print("Primitive roots")
-    #print(primitive_roots(17))
     
 
 '''
