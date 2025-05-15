@@ -107,6 +107,7 @@ def padto8(data):
         data.insert(0,"0")
     return ''.join(data)
 
+#Simple XOR key cipher. NOT SECURE.
 def encrypt(message:str, key:int):
     '''
     Parameters:
